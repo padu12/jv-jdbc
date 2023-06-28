@@ -3,7 +3,6 @@ package mate.jdbc.dao;
 import mate.jdbc.model.Manufacturer;
 import mate.jdbc.util.ConnectionUtil;
 import mate.jdbc.util.DataProcessingException;
-
 import java.lang.annotation.Annotation;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -31,7 +30,8 @@ public class ManufacturerDaoImpl implements ManufacturerDao{
                 manufacturer.setId(id);
             }
         } catch (SQLException e) {
-            throw new DataProcessingException("Can't create a new manufacturer", e);
+            throw new DataProcessingException("Can't create a new manufacturer "
+                    + manufacturer, e);
         }
         return manufacturer;
     }
@@ -50,7 +50,7 @@ public class ManufacturerDaoImpl implements ManufacturerDao{
                 result = Optional.of(createManufacturerEntity(resultSet));
             }
         } catch (SQLException e) {
-            throw new DataProcessingException("Can't get manufacturer", e);
+            throw new DataProcessingException("Can't get manufacturer with this id " + id, e);
         }
         return result;
     }
@@ -67,7 +67,7 @@ public class ManufacturerDaoImpl implements ManufacturerDao{
                 literaryFormats.add(createManufacturerEntity(resultSet));
             }
         } catch (SQLException e) {
-            throw new DataProcessingException("Can't get a list of manufacturers from db", e);
+            throw new DataProcessingException("Can't get all manufacturers from db", e);
         }
         return literaryFormats;
     }
@@ -91,22 +91,22 @@ public class ManufacturerDaoImpl implements ManufacturerDao{
             updateStatement.setString(3, manufacturer.getId().toString());
             updateStatement.executeUpdate();
         } catch (SQLException e) {
-            throw new DataProcessingException("Can't update the manufacturer", e);
+            throw new DataProcessingException("Can't update the manufacturer with id "
+                    + manufacturer.getId(), e);
         }
         return manufacturer;
     }
 
     @Override
     public boolean delete(Long id) {
-        String deleteRequest = "UPDATE manufacturers SET is_deleted = 'T' WHERE id = ?";
+        String deleteRequest = "UPDATE manufacturers SET is_deleted = 'TRUE' WHERE id = ?";
         try (Connection connection = ConnectionUtil.getConnection();
              PreparedStatement deleteStatement = connection.prepareStatement(deleteRequest)) {
             deleteStatement.setString(1, id.toString());
-            deleteStatement.executeUpdate();
+            return deleteStatement.executeUpdate() != 0;
         } catch (SQLException e) {
-            throw new DataProcessingException("Can't delete the manufacturer", e);
+            throw new DataProcessingException("Can't delete the manufacturer with id " + id, e);
         }
-        return false;
     }
 
     @Override

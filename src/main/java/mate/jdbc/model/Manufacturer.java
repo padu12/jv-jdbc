@@ -1,10 +1,5 @@
 package mate.jdbc.model;
 
-import mate.jdbc.lib.Dao;
-import mate.jdbc.lib.Injector;
-
-import java.lang.annotation.Annotation;
-
 public class Manufacturer {
     private Long id;
     private String name;
@@ -36,10 +31,11 @@ public class Manufacturer {
 
     @Override
     public String toString() {
-        return "Manufacturer{" +
-                "id=" + id +
-                ", name='" + name + '\'' +
-                ", country='" + country + '\'' +
-                '}';
+            return "Manufacturer{"
+                    + "
+            id = " + id
+                    + ",                             name='" + name + '\''
+                    + ",                             country='" + country + '\''
+                    + '}';
     }
 }
