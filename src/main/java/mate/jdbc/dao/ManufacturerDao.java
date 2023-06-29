@@ -5,7 +5,7 @@ import java.util.Optional;
 import mate.jdbc.lib.Dao;
 import mate.jdbc.model.Manufacturer;
 
-public interface ManufacturerDao extends Dao {
+public interface ManufacturerDao {
     Manufacturer create(Manufacturer manufacturer);
 
     Optional<Manufacturer> get(Long id);
@@ -15,4 +15,6 @@ public interface ManufacturerDao extends Dao {
     Manufacturer update(Manufacturer manufacturer);
 
     boolean delete(Long id);
+
+    Class<? extends java.lang.annotation.Annotation> annotationType();
 }
