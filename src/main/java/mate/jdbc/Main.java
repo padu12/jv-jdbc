@@ -1,8 +1,8 @@
 package mate.jdbc;
 
+import java.util.List;
 import mate.jdbc.dao.ManufacturerDaoImpl;
 import mate.jdbc.model.Manufacturer;
-import java.util.List;
 
 public class Main {
     public static void main(String[] args) {
