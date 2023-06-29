@@ -1,6 +1,5 @@
 package mate.jdbc.dao;
 
-import java.lang.annotation.Annotation;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -13,7 +12,6 @@ import mate.jdbc.model.Manufacturer;
 import mate.jdbc.util.ConnectionUtil;
 import mate.jdbc.util.DataProcessingException;
 
-@mate.jdbc.lib.Dao
 public class ManufacturerDaoImpl implements ManufacturerDao {
     @Override
     public Manufacturer create(Manufacturer manufacturer) {
@@ -108,10 +106,5 @@ public class ManufacturerDaoImpl implements ManufacturerDao {
         } catch (SQLException e) {
             throw new DataProcessingException("Can't delete the manufacturer with id " + id, e);
         }
-    }
-
-    @Override
-    public Class<? extends Annotation> annotationType() {
-        return null;
     }
 }
